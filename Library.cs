@@ -10,7 +10,7 @@ namespace DNFC_Redux_Library
         public static bool IsInLoading { get; set;}
         public static bool IsInMainMenu { get; set; }
         public static bool IsInitialized { get; set; }
-        public static GameObject SettingsManager { get; set; }
+        public static Component SettingsManager { get; set; }
     }
     public class Library : MelonMod
     {
@@ -70,12 +70,12 @@ namespace DNFC_Redux_Library
                SharedData.IsInitialized = initialized;
         }
 
-        public void FindSettingsManager()
+        public void FindSettingsManagerComponent()
         {
             try
             {
                 MelonLogger.Msg("Attempting to find SettingsManager GameObject...");
-                GameObject settingsManager = GameObject.Find("SettingsManager")?.gameObject;
+                Component settingsManager = GameObject.Find("SettingsManager")?.GetComponent("SettingsManager");
                 MelonLogger.Msg("SettingsManager GameObject found: " + (settingsManager != null));
                 SharedData.SettingsManager = settingsManager;
             }
@@ -85,7 +85,7 @@ namespace DNFC_Redux_Library
             }
         }
 
-        public GameObject GetSettingsManager()
+        public Component GetSettingsManagerComponent()
         {
             if (SharedData.SettingsManager != null)
             {
@@ -113,3 +113,5 @@ namespace DNFC_Redux_Library
         }
     }
 }
+
+
