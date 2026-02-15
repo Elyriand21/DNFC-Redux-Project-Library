@@ -9,6 +9,7 @@ namespace DNFC_Redux_Library
     public class SharedData
     {
         public static bool IsInGame { get; set;}
+        public static bool IsInLoading { get; set;}
         public static bool IsInMainMenu { get; set; }
         public static bool IsInitialized { get; set; }
         public static GameObject SettingsManager { get; set; }
@@ -24,6 +25,16 @@ namespace DNFC_Redux_Library
         {
             SharedData.IsInGame = inGame;
             return SharedData.IsInGame;
+        }
+
+        public bool IsInLoading()
+        {
+            return SharedData.IsInLoading;
+        }
+        public bool SetIsInLoading(bool inLoading)
+        {
+            SharedData.IsInLoading = inLoading;
+            return SharedData.IsInLoading;
         }
         // Check if the player is in the main menu
         public bool IsInMainMenu()
