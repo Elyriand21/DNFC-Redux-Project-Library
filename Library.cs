@@ -14,7 +14,7 @@ namespace DNFC_Redux_Library
         public static int WorkerCount { get; set; }
         public static Component SettingsManager { get; set; }
         public static GameObject CharactersInUse { get; set; }
-        public static List<GameObject> Workers = new List<GameObject>();
+        public static List<GameObject> Workers;
     }
     public class Library : MelonMod
     {
@@ -74,6 +74,11 @@ namespace DNFC_Redux_Library
                SharedData.IsInitialized = initialized;
         }
 
+        public int GetWorkerListCount()
+        {
+            return SharedData.Workers.Count;
+        }
+
         public int GetWorkerCount()
         {
             return SharedData.WorkerCount;
@@ -115,27 +120,37 @@ namespace DNFC_Redux_Library
 
         public void GetAllWorkers()
         {
+            SharedData.Workers = new List<GameObject>();
             FindCharactersInUse();
             if (SharedData.CharactersInUse != null)
             {
-                if (SharedData.WorkerCount != SharedData.CharactersInUse.transform.childCount)
+                SetWorkerCount(SharedData.CharactersInUse.transform.childCount);
+                MelonLogger.Msg("Total Workers found: " + SharedData.WorkerCount);
+                for (int i = 0; i < SharedData.WorkerCount; i++)
                 {
-                    SetWorkerCount(SharedData.CharactersInUse.transform.childCount);
-                    MelonLogger.Msg("Total Workers found: " + SharedData.WorkerCount);
-                    for (int i = 0; i < SharedData.WorkerCount; i++)
-                    {
-                        GameObject worker = SharedData.CharactersInUse.transform.GetChild(i).gameObject;
-                        SharedData.Workers.Add(worker);
-                    }
+                    GameObject worker = SharedData.CharactersInUse.transform.GetChild(i).gameObject;
+                    SharedData.Workers.Add(worker);
                 }
+            }
+        }
+
+        public void CheckWorkerCount()
+        {
+            if(SharedData.Workers.Count != SharedData.CharactersInUse.transform.childCount)
+            {
+                MelonLogger.Msg("Worker count has changed. Updating worker list...");
+                GetAllWorkers();
             }
         }
 
         public void GetWorker()
         {
-           for(int i = 0; i < SharedData.Workers.Count; i++)
+            if (SharedData.Workers != null)
             {
-                MelonLogger.Msg($"Worker {i}: {SharedData.Workers[i].name}");
+                for (int i = 0; i < SharedData.Workers.Count; i++)
+                {
+                    MelonLogger.Msg($"Worker {i}: {SharedData.Workers[i].name}");
+                }
             }
         }
 
