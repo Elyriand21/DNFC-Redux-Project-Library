@@ -1,13 +1,5 @@
 ﻿using DNFC_Redux_Library;
 using MelonLoader;
 
-[assembly: MelonInfo(typeof(Library), @"
-
-  ___  _  _ ___ ___   ___        _            _    _ _                      
- |   \| \| | __/ __| | _ \___ __| |_  ___ __ | |  (_) |__ _ _ __ _ _ _ _  _ 
- | |) | .` | _| (__  |   / -_) _` | || \ \ / | |__| | '_ \ '_/ _` | '_| || |
- |___/|_|\_|_| \___| |_|_\___\__,_|\_,_/_\_\ |____|_|_.__/_| \__,_|_|  \_, |
-                                                                       |__/ 
-
-", "0.0.0", "DNFC Redux Project")]
+[assembly: MelonInfo(typeof(Library),"DNFC Redux Library", "1.0.0", "DNFC Redux Project")]
 [assembly: MelonGame("Dope Games", "DNFC")]

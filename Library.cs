@@ -16,6 +16,21 @@ namespace DNFC_Redux_Library
     }
     public class Library : MelonMod
     {
+        public override void OnEarlyInitializeMelon()
+        {
+            MelonLogger.Msg(@"
+
+         ___  _  _ ___ ___   ___        _            _    _ _                      
+        |   \| \| | __/ __| | _ \___ __| |_  ___ __ | |  (_) |__ _ _ __ _ _ _ _  _ 
+        | |) | .` | _| (__  |   / -_) _` | || \ \ / | |__| | '_ \ '_/ _` | '_| || |
+        |___/|_|\_|_| \___| |_|_\___\__,_|\_,_/_\_\ |____|_|_.__/_| \__,_|_|  \_, |
+                                                                              |__/ 
+    From everyone at the DNFC Redux Project, we hope you enjoy 
+    this mod and the work we've put into it. If you have any questions, 
+    suggestions, or want to contribute, feel free to join our Discord server!
+
+");
+        }
         // Check if the player is in the game
         public bool IsInGame()
         {
