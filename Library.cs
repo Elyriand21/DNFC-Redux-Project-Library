@@ -1,4 +1,5 @@
 ﻿using MelonLoader;
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -11,6 +12,7 @@ namespace DNFC_Redux_Library
         public static bool IsInMainMenu { get; set; }
         public static bool IsInitialized { get; set; }
         public static Component SettingsManager { get; set; }
+        public static GameObject CharactersInUse { get; set; }
     }
     public class Library : MelonMod
     {
@@ -97,6 +99,47 @@ namespace DNFC_Redux_Library
                 return null;
             }
 
+        }
+
+        public void GetAllWorker()
+        {
+            FindCharactersInUse();
+            if (SharedData.CharactersInUse != null)
+            {
+                foreach (Transform child in SharedData.CharactersInUse.transform)
+                {
+                    MelonLogger.Msg("Worker found: " + child.name);
+                }
+            }
+        }
+
+        public void FindCharactersInUse()
+        {
+            try
+            {
+                MelonLogger.Msg("Attempting to find CharactersInUse GameObject...");
+                GameObject charactersInUse = GameObject.Find("CharactersInUse");
+                MelonLogger.Msg("CharactersInUse GameObject found: " + (charactersInUse != null));
+                SharedData.CharactersInUse = charactersInUse;
+
+            }
+            catch
+            {
+                MelonLogger.Msg("Error finding CharactersInUse GameObject.");
+            }
+        }
+
+        public GameObject GetCharactersInUse()
+        {
+            if (SharedData.CharactersInUse != null)
+            {
+                return SharedData.CharactersInUse;
+            }
+            else
+            {
+                MelonLogger.Msg("GetCharactersInUse: CharactersInUse GameObject is not set.");
+                return null;
+            }
         }
 
         public bool GetActiveInHierarchy(GameObject obj)
