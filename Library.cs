@@ -11,6 +11,7 @@ namespace DNFC_Redux_Library
         public static bool IsInLoading { get; set;}
         public static bool IsInMainMenu { get; set; }
         public static bool IsInitialized { get; set; }
+        public static int WorkerCount { get; set; }
         public static Component SettingsManager { get; set; }
         public static GameObject CharactersInUse { get; set; }
     }
@@ -72,6 +73,16 @@ namespace DNFC_Redux_Library
                SharedData.IsInitialized = initialized;
         }
 
+        public int GetWorkerCount()
+        {
+            return SharedData.WorkerCount;
+        }
+
+        public void SetWorkerCount(int count)
+        {
+            SharedData.WorkerCount = count;
+        }
+
         public void FindSettingsManagerComponent()
         {
             try
@@ -101,12 +112,30 @@ namespace DNFC_Redux_Library
 
         }
 
-        public void GetAllWorkers()
+        public void GetAllWorker()
         {
             FindCharactersInUse();
             if (SharedData.CharactersInUse != null)
             {
-                MelonLogger.Msg(SharedData.CharactersInUse.transform.childCount);
+                SetWorkerCount(SharedData.CharactersInUse.transform.childCount);
+                for (int i = 0; i < SharedData.WorkerCount; i++)
+                {
+                    GameObject worker = SharedData.CharactersInUse.transform.GetChild(i).gameObject;
+                    MelonLogger.Msg("Worker " + i + ": " + worker.name);
+                }
+            }
+        }
+
+        public void CheckWorkerCountChange()
+        {
+            FindCharactersInUse();
+            if(SharedData.CharactersInUse != null)
+            {
+                if(SharedData.WorkerCount != SharedData.CharactersInUse.transform.childCount)
+                {
+                    MelonLogger.Msg("Worker count changed from " + SharedData.WorkerCount + " to " + SharedData.CharactersInUse.transform.childCount);
+                    SetWorkerCount(SharedData.CharactersInUse.transform.childCount);
+                }
             }
         }
 
@@ -115,7 +144,6 @@ namespace DNFC_Redux_Library
             try
             {
                 GameObject charactersInUse = GameObject.Find("CharactersInUse");
-                MelonLogger.Msg("CharactersInUse GameObject found: " + (charactersInUse != null));
                 SharedData.CharactersInUse = charactersInUse;
 
             }
