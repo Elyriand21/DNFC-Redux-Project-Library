@@ -101,7 +101,7 @@ namespace DNFC_Redux_Library
 
         }
 
-        public void GetAllWorker()
+        public void GetAllWorkers()
         {
             FindCharactersInUse();
             if (SharedData.CharactersInUse != null)
