@@ -106,10 +106,7 @@ namespace DNFC_Redux_Library
             FindCharactersInUse();
             if (SharedData.CharactersInUse != null)
             {
-                foreach (Transform child in SharedData.CharactersInUse.transform)
-                {
-                    MelonLogger.Msg("Worker found: " + child.name);
-                }
+                MelonLogger.Msg(SharedData.CharactersInUse.transform.childCount);
             }
         }
 
@@ -117,7 +114,6 @@ namespace DNFC_Redux_Library
         {
             try
             {
-                MelonLogger.Msg("Attempting to find CharactersInUse GameObject...");
                 GameObject charactersInUse = GameObject.Find("CharactersInUse");
                 MelonLogger.Msg("CharactersInUse GameObject found: " + (charactersInUse != null));
                 SharedData.CharactersInUse = charactersInUse;
