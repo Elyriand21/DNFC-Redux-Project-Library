@@ -33,7 +33,7 @@ When developing multiple mods or a modular system for DNFC, repeated logic can b
 - Click the **select** button.
 - Select DNFC.exe in your Game's Installation Folder.
 - Uncheck **Latest** and select version **v0.7.1** from the Drop-Down List.
-- Once the installation is successful, open the game through Steam.
+- Once the installation is successful, open the game through Steam/Epic Games.
 - Place **DNFC_Redux_Library.dll** into the newly created Mods folder inside the Game's Installation Folder.
 ## Usage
 ```cs
