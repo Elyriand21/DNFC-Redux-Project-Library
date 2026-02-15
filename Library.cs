@@ -14,6 +14,7 @@ namespace DNFC_Redux_Library
         public static int WorkerCount { get; set; }
         public static Component SettingsManager { get; set; }
         public static GameObject CharactersInUse { get; set; }
+        public static List<GameObject> Workers = new List<GameObject>();
     }
     public class Library : MelonMod
     {
@@ -112,30 +113,29 @@ namespace DNFC_Redux_Library
 
         }
 
-        public void GetAllWorker()
+        public void GetAllWorkers()
         {
             FindCharactersInUse();
             if (SharedData.CharactersInUse != null)
             {
-                SetWorkerCount(SharedData.CharactersInUse.transform.childCount);
-                for (int i = 0; i < SharedData.WorkerCount; i++)
+                if (SharedData.WorkerCount != SharedData.CharactersInUse.transform.childCount)
                 {
-                    GameObject worker = SharedData.CharactersInUse.transform.GetChild(i).gameObject;
-                    MelonLogger.Msg("Worker " + i + ": " + worker.name);
+                    SetWorkerCount(SharedData.CharactersInUse.transform.childCount);
+                    MelonLogger.Msg("Total Workers found: " + SharedData.WorkerCount);
+                    for (int i = 0; i < SharedData.WorkerCount; i++)
+                    {
+                        GameObject worker = SharedData.CharactersInUse.transform.GetChild(i).gameObject;
+                        SharedData.Workers.Add(worker);
+                    }
                 }
             }
         }
 
-        public void CheckWorkerCountChange()
+        public void GetWorker()
         {
-            FindCharactersInUse();
-            if(SharedData.CharactersInUse != null)
+           for(int i = 0; i < SharedData.Workers.Count; i++)
             {
-                if(SharedData.WorkerCount != SharedData.CharactersInUse.transform.childCount)
-                {
-                    MelonLogger.Msg("Worker count changed from " + SharedData.WorkerCount + " to " + SharedData.CharactersInUse.transform.childCount);
-                    SetWorkerCount(SharedData.CharactersInUse.transform.childCount);
-                }
+                MelonLogger.Msg($"Worker {i}: {SharedData.Workers[i].name}");
             }
         }
 
