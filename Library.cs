@@ -134,6 +134,28 @@ namespace DNFC_Redux_Library
             }
         }
 
+        public void GetWorkerCharacterComponent()
+        {
+            if (SharedData.Workers != null)
+            {
+                for (int i = 0; i < SharedData.Workers.Count; i++)
+                {
+                    GameObject worker = SharedData.Workers[i];
+                    string workerName = (worker.name).Substring(17, worker.name.Length); 
+                    MelonLogger.Msg("Checking Worker " + i + ": " + workerName);
+                    //Component characterComponent = worker.GetComponent($"Character{workerName)");
+                    //if (characterComponent != null)
+                    //{
+                    //    MelonLogger.Msg($"Worker {i} has Character component.");
+                    //}
+                    //else
+                    //{
+                    //    MelonLogger.Msg($"Worker {i} does NOT have Character component.");
+                    //}
+                }
+            }
+        }
+
         public void CheckWorkerCount()
         {
             if(SharedData.Workers.Count != SharedData.CharactersInUse.transform.childCount)
