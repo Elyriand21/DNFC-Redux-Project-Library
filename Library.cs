@@ -1,4 +1,5 @@
-﻿using MelonLoader;
+﻿using System;
+using MelonLoader;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,6 +16,8 @@ namespace DNFC_Redux_Library
         public static Component SettingsManager { get; set; }
         public static GameObject CharactersInUse { get; set; }
         public static List<GameObject> Workers;
+
+        public static Component ProgressionCoordinator {get; set;}
     }
     public class Library : MelonMod
     {
@@ -88,19 +91,56 @@ namespace DNFC_Redux_Library
         {
             SharedData.WorkerCount = count;
         }
+        
+        private bool TryFetchComponentFromGameObj(string gameObjectName, string componentName, out Component component)
+        {
+            component = null;
+            try
+            {
+                MelonLogger.Msg($"Attempting to find {gameObjectName} GameObject...");
+                GameObject gameObject = GameObject.Find(gameObjectName);
+
+                if (gameObject == null)
+                {
+                    MelonLogger.Msg($"No game object with name {gameObjectName} was found.");
+                    return false;
+                }
+
+                MelonLogger.Msg($"Found game object with name: {gameObjectName}.");
+                MelonLogger.Msg($"Attempting to find {componentName} component on {gameObjectName}...");
+
+                component = gameObject.GetComponent(componentName);
+                if (component == null)
+                {
+                    MelonLogger.Msg($"No component with name {componentName} found on {gameObjectName}");
+                    return false;
+                }
+                
+                MelonLogger.Msg($"Found component with name: {componentName}");
+                return false;
+            }
+            catch (Exception ex)
+            {
+                MelonLogger.Msg($"Error fetching component {componentName} on {gameObjectName}: {ex.Message}");
+                return false;
+            }
+        }
+
+        
 
         public void FindSettingsManagerComponent()
         {
-            try
+            if (TryFetchComponentFromGameObj("SettingsManager", "SettingsManager",  out Component component))
             {
-                MelonLogger.Msg("Attempting to find SettingsManager GameObject...");
-                Component settingsManager = GameObject.Find("SettingsManager")?.GetComponent("SettingsManager");
-                MelonLogger.Msg("SettingsManager GameObject found: " + (settingsManager != null));
-                SharedData.SettingsManager = settingsManager;
+                SharedData.SettingsManager = component;
             }
-            catch
+        }
+
+        public void FindProgressionCoordinatorComponent()
+        {
+            if (TryFetchComponentFromGameObj("Managers", "ProgressionClientsCoordinator", out Component component))
             {
-                MelonLogger.Msg("Error finding SettingsManager GameObject.");
+                SharedData.ProgressionCoordinator = component;
             }
         }
 
