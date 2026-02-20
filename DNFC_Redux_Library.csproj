@@ -4,7 +4,7 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
         <PackageId>DNFC.Mods.Library</PackageId>
-        <Version>1.0.4</Version>
+        <Version>1.0.5</Version>
         <Authors>.Zer0 &amp; Panthy</Authors>
         <Description>DNFC Redux library for MelonLoader mods (Unity / IL2CPP)</Description>
         <PackageTags>dnfc;melonloader;unity;mod</PackageTags>
