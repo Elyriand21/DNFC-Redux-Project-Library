@@ -1,4 +1,6 @@
-﻿using MelonLoader;
+﻿using Il2CppChartAndGraph;
+using MelonLoader;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace DNFC_Redux_Library
@@ -17,7 +19,7 @@ namespace DNFC_Redux_Library
         /// </summary>
         public static bool DeveloperMode { get; private set; } = false;
 
-        private static SharedDataHandler _gameState;
+        public static SharedDataHandler _gameState;
 
         public override void OnEarlyInitializeMelon()
         {

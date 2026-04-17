@@ -7,7 +7,7 @@ namespace DNFC_Redux_Library
     /// </summary>
     public class EconomyLib
     {
-        public readonly Util _utility = CoreLib.Utility;
+        private readonly Util _utility = CoreLib.Utility;
         public int GetBankBalance()
         {
             _utility.LogMessage($"EconomyLib: Current bank balance is {BankManager.BankBalance}.");
